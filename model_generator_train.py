@@ -13,7 +13,7 @@ from keras_bert import Tokenizer
 
 from util import event_type, BASE_MODEL_DIR
 from util import MAX_SEQ_LEN, BATCH_SIZE, EPOCH, train_file_path, test_file_path
-from load_data import read_data
+from A_load_data import read_data
 from model import BertBilstmCRF
 
 

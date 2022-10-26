@@ -62,6 +62,7 @@ app = Flask(__name__)
 def get_geo():
     return_result = {"code": 200, "message": "success", "data": []}
     try:
+        # 获取request的text文本
         text = request.get_json()["text"].replace(" ", "")
         word_labels, seq_types = PreProcessInputData([text])
 

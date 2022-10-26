@@ -36,12 +36,11 @@ with tf.Session(graph=tf.Graph()) as sess:
 
     sigs[signature_constants.DEFAULT_SERVING_SIGNATURE_DEF_KEY] = \
         tf.saved_model.signature_def_utils.predict_signature_def(
-            inputs={"input_1": g.get_operation_by_name('input_1').outputs[0], "input_2": g.get_operation_by_name('input_2').outputs[0]},
+            inputs={"input_1": g.get_operation_by_name('input_1').outputs[0],
+                    "input_2": g.get_operation_by_name('input_2').outputs[0]},
             outputs={"output": g.get_operation_by_name('crf_1/one_hot').outputs[0]}
         )
 
-    builder.add_meta_graph_and_variables(sess,
-                                        [tag_constants.SERVING],
-                                        signature_def_map = sigs)
+    builder.add_meta_graph_and_variables(sess, [tag_constants.SERVING], signature_def_map = sigs)
 
     builder.save()

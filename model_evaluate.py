@@ -13,7 +13,7 @@ from keras_contrib.losses import crf_loss
 from keras_contrib.metrics import crf_accuracy
 from seqeval.metrics import classification_report
 
-from load_data import read_data
+from A_load_data import read_data
 from util import event_type, test_file_path, BASE_MODEL_DIR
 from model_train import PreProcessInputData, id_label_dict
 

@@ -11,6 +11,13 @@ from concurrent.futures import ThreadPoolExecutor, wait, ALL_COMPLETED
 from keras_bert import Tokenizer
 
 
+'''
+1：读取文本数据
+2：讲文本数据转为batch，然后对于每个batch进行token
+3: batch放入多线程中调用接口预测
+'''
+
+
 # 读取label2id字典
 with open("../example_label2id.json", "r", encoding="utf-8") as h:
     label_id_dict = json.loads(h.read())

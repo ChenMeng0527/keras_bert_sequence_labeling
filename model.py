@@ -31,10 +31,10 @@ class BertBilstmCRF:
     def create_model(self):
         model_path = "./{}/".format(BASE_MODEL_DIR)
         bert = load_trained_model_from_checkpoint(
-            model_path + "bert_config.json",
-            model_path + "bert_model.ckpt",
-            seq_len=self.max_seq_length
-        )
+                                                    model_path + "bert_config.json",
+                                                    model_path + "bert_model.ckpt",
+                                                    seq_len=self.max_seq_length
+                                                )
         # make bert layer trainable
         for layer in bert.layers:
             layer.trainable = True

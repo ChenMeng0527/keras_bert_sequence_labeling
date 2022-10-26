@@ -3,6 +3,13 @@
 # @Author : Jclian91
 # @File : tf_serving_normal_predict_test.py
 # @Place : Yangpu, Shanghai
+
+'''
+1：读取文本数据
+2：讲文本数据转为batch，然后对于每个batch进行token
+3: batch放入接口中预测
+'''
+
 import json
 import requests
 import numpy as np
@@ -19,6 +26,8 @@ id_label_dict = {v: k for k, v in label_id_dict.items()}
 
 
 # 载入数据
+
+# 对vocab中的词进行index处理
 dict_path = '../chinese_L-12_H-768_A-12/vocab.txt'
 token_dict = {}
 with open(dict_path, 'r', encoding='utf-8') as reader:
@@ -29,6 +38,11 @@ with open(dict_path, 'r', encoding='utf-8') as reader:
 
 class OurTokenizer(Tokenizer):
     def _tokenize(self, text):
+        '''
+        如果字不在就用unk代替
+        :param text:
+        :return:
+        '''
         R = []
         for c in text:
             if c in self._token_dict:
@@ -40,6 +54,12 @@ class OurTokenizer(Tokenizer):
 
 # 将BIO序列转化为JSON格式
 def bio_to_json(string, tags):
+    '''
+
+    :param string:
+    :param tags:
+    :return:
+    '''
     item = {"string": string, "entities": []}
     entity_name = ""
     entity_start = 0
@@ -88,10 +108,18 @@ predict_result = []
 
 # 测试HTTP响应时间
 def get_predict(i, sentence_list):
+    '''
+
+
+    :param i:
+    :param sentence_list:
+    :return:
+    '''
     tensor = {"instances": []}
     for sentence in sentence_list:
         token_ids, segment_is = tokenizer.encode(sentence, max_len=128)
-        tensor["instances"].append({"input_1": token_ids, "input_2": segment_is})
+        tensor["instances"].append({"input_1": token_ids,
+                                    "input_2": segment_is})
 
     url = "http://192.168.1.193:8561/v1/models/example_ner:predict"
     req = requests.post(url, json=tensor)

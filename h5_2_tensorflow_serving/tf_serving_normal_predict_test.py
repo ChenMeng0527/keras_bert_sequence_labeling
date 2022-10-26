@@ -9,6 +9,11 @@ import requests
 import numpy as np
 from keras_bert import Tokenizer
 
+'''
+1：读取文本数据
+2：将文本数据for循环
+3: 进行token调用接口预测
+'''
 
 # 读取label2id字典
 with open("../example_label2id.json", "r", encoding="utf-8") as h:

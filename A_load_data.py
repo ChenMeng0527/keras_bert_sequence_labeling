@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time : 2020/12/24 13:27
 # @Author : Jclian91
-# @File : load_data.py
+# @File : A_load_data.py
 # @Place : Yangpu, Shanghai
 import json
 
@@ -10,7 +10,21 @@ from util import train_file_path, event_type
 
 # 读取数据集
 def read_data(file_path):
+    '''
+
+    :param file_path: label数据
+    :return:
+    '''
     # 读取数据集
+
+    # 1 B-TIME
+    # 6 I-TIME
+    # 0 I-TIME
+    # 9 I-TIME
+    # 年 I-TIME
+    # ， O
+    # 日 O
+
     with open(file_path, "r", encoding="utf-8") as f:
         content = [_.strip() for _ in f.readlines()]
 
@@ -41,9 +55,13 @@ def read_data(file_path):
 # 读取训练集数据
 # 将标签转换成id
 def label2id():
+    '''
 
+    :return:
+    '''
     _, train_tags = read_data(train_file_path)
-
+    print(_)
+    print(train_tags)
     # 标签转换成id，并保存成文件
     unique_tags = []
     for seq in train_tags:

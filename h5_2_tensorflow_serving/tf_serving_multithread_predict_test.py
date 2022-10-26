@@ -3,6 +3,13 @@
 # @Author : Jclian91
 # @File : tf_serving_normal_predict_test.py
 # @Place : Yangpu, Shanghai
+
+'''
+1：读取文本数据
+2：将文本数据for循环加入多进程中
+3: 进行token调用接口预测
+'''
+
 import time
 import json
 import requests
@@ -84,7 +91,8 @@ start_time = time.time()
 # 测试HTTP响应时间
 def get_predict(i, sentence):
     token_ids, segment_is = tokenizer.encode(sentence, max_len=128)
-    tensor = {"instances": [{"input_1": token_ids, "input_2": segment_is}]}
+    tensor = {"instances": [{"input_1": token_ids,
+                             "input_2": segment_is}]}
 
     url = "http://192.168.1.193:8561/v1/models/example_ner:predict"
     req = requests.post(url, json=tensor)
